@@ -1,0 +1,100 @@
+import javax.swing.JOptionPane;
+/**
+ *
+ * @author afryn
+ */
+class Queue {
+
+    private int head;   // head pointer, pointing to index
+    private int tail;   // tail pointer, pointing to index
+    private int size;
+    private Ticket data[];
+
+    // contructor
+    public Queue(int n) {
+        head = -1;
+        tail = -1;
+        size = n;
+        data = new Ticket[size];  // array to store Ticket data
+    }
+
+    // method to check empty
+    public boolean isEmpty() {
+        return tail == -1;
+    }
+
+    // method to check full
+    public boolean isFull() {
+        return tail >= size;
+    }
+
+    // method to enqueue
+    public void enqueue(Ticket input) {
+        if (isEmpty()) {
+            data[++head] = input;
+            tail++;
+            //System.out.println("First data " + input + " inserted..");
+        } else {
+            if (isFull()) {
+            } else {
+                data[++tail] = input;
+            }
+        }
+    }
+
+    // method to dequeue
+    public Ticket dequeue() {
+        if (isEmpty()) {
+            return null;
+        } else {
+            Ticket temp = data[head];
+            for (int i = 0; i < tail; i++) {
+                data[i] = data[i + 1];
+            }
+            tail--;
+            return temp;
+        }
+
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    // method to peek
+    public void peek() {
+        System.out.println("Peek(): " + data[head]);
+    }
+
+    public int getTail() {
+        return tail;
+    }
+
+    public boolean search(String name) {
+        for (int i = 0; i < 20; i++) {
+            if (data[i] != null && data[i].getname() != null) {
+                if (data[i].getname().equals(name)) {  //
+                    JOptionPane.showMessageDialog(null, data[i] + "Ticket status: Waiting list (Position :" + (i + 1) + ")", "Ticket is waitlisted", JOptionPane.INFORMATION_MESSAGE);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean remove(String name) {
+        for (int i = 0; i < 20; i++) {
+            if (data[i] != null && data[i].getname() != null) {
+                if (data[i].getname().equalsIgnoreCase(name)) {  //
+                    for (int j = i; j < tail; j++) {
+                        data[j] = data[j + 1];
+                    }
+                    tail--;
+                    JOptionPane.showMessageDialog(null, "Your ticket has been successfully cancelled. We will miss you!", "Cancellation successful", JOptionPane.INFORMATION_MESSAGE);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
