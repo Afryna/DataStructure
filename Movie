@@ -1,0 +1,229 @@
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+
+/**
+ *
+ * @author afryn
+ */
+public class Movie {
+    private static final long serialVersionUID=7832328826172497657L;
+
+    private String team1;
+
+    private String team2;
+
+    private int hour;
+
+    private int minute;
+
+    private int day;
+
+    private int month;
+
+    private int year;
+
+    private Tickets t;
+
+    
+    private Movie next;
+
+
+    @Override
+
+    public String toString() {
+
+        return ""+ team1 + " vs " + team2 + ", " + day + "/" + month + "/" + year + ", " + hour + ":" + minute;
+
+
+    }
+
+
+    
+    public Movie() {
+
+        t=new Tickets();
+
+    }
+
+
+    public Movie(String team1, String team2, int hour, int minute, int day, int month, int year, Movie next) {
+
+        this.team1 = team1;
+
+        this.team2 = team2;
+
+        this.hour = hour;
+
+        this.minute = minute;
+
+        this.day = day;
+
+        this.month = month;
+
+        this.year = year;
+
+    }
+
+
+    public Movie(String team1, String team2, int hour, int minute, int day, int month, int year) {
+
+        this.team1 = team1;
+
+        this.team2 = team2;
+
+        this.hour = hour;
+
+        this.minute = minute;
+
+        this.day = day;
+
+        this.month = month;
+
+        this.year = year;
+
+    }
+
+
+    public Movie getNext() {
+
+        return next;
+
+    }
+
+
+    public void setNext(Movie next) {
+
+        this.next = next;
+
+    }
+
+    
+    public void setDetails(String team1, String team2, int hour, int minute, int day, int month, int year){
+
+        this.team1 = team1;
+
+        this.team2 = team2;
+
+        this.hour = hour;
+
+        this.minute = minute;
+
+        this.day = day;
+
+        this.month = month;
+
+        this.year = year;
+
+    }
+
+  
+    
+    public boolean isNotOver(){
+
+        Calendar cal = Calendar.getInstance();
+
+
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+
+        //System.out.println( sdf.format(cal.getTime()) );
+
+        
+        String[] time=sdf.format(cal.getTime()).split(":");
+
+        int curhour = Integer.parseInt(time[0]);
+
+        int curminute = Integer.parseInt(time[1]);
+
+        
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        LocalDate localDate = LocalDate.now();
+
+        //System.out.println(dtf.format(localDate));
+
+        
+        String[] date=dtf.format(localDate).split("/");
+
+        int curday = Integer.parseInt(date[0]);
+
+        int curmonth = Integer.parseInt(date[1]);
+
+        int curyear = Integer.parseInt(date[2]);
+
+        
+        
+        if(this.year>curyear)
+
+            return true;
+
+        else if(this.year==curyear){
+
+            if(this.month>curmonth)
+
+                return true;
+
+            else if(this.month==curmonth){
+
+                if(this.day>curday)
+
+                    return true;
+
+                else if(this.day==curday){
+
+                    if(this.hour>curhour)
+
+                        return true;
+
+                    else if(this.hour==curhour){
+
+                        if(this.minute>curminute)
+
+                            return true;
+
+                        else if(this.minute==curminute)
+
+                            return true;
+
+                    }
+
+                }
+
+            }
+   
+        }
+
+    return false;
+   
+    }
+
+    
+    public void bookticket(){
+
+        t.book1();
+
+    }
+
+    
+    public void booktickets(Ticket t1){
+
+       // t.book2(t1.this);
+
+    }
+
+    
+    public void cancelticket(){
+
+        t.cancel();
+
+    }
+
+    
+    public void displayStat(){
+
+       t.displaySt();
+    }
+
+}
