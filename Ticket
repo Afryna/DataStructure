@@ -1,0 +1,47 @@
+class Ticket {
+    protected String name;
+    protected int status;
+   // protected String date;
+
+    public Ticket() {
+        name=null;
+        status = 0;
+    }
+    
+    Ticket(String name, int status) {     //have to add date
+        this.name = name;       
+        this.status = status;
+        //date = f;
+    }
+    
+    public void empty(){
+        name=null;
+        status = 0;       
+    }
+    
+    public String getname() {
+        return name;
+    }
+
+//    public String getmatricNo() {
+//        return matricNo;
+//    }
+    public int getstatus(){
+        return status;
+    }
+
+//    public String getdate() {
+//        return date;
+//    }
+    
+
+    public String setDetails(String name, int status) {
+        this.name = name;
+        this.status = status;
+ 
+        
+        return "Name : "+ getname() + "\n" + "Status : "+ getstatus()  ;
+             
+    }
+
+}
