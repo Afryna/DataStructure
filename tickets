@@ -1,0 +1,107 @@
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author afryn
+ */
+class Tickets {
+
+    Ticket[] t;
+    int total;
+    Queue wl;
+
+    Scanner scan = new Scanner(System.in);
+
+    String name;
+    int age;
+    String Phnnumber;
+    String gender;
+
+    public Tickets() {
+        this.total = 0;
+        t = new Ticket[1];
+        for (int i = 0; i < 1; i++) {
+            t[i] = new Ticket();
+        }
+        wl = new Queue(20);
+
+    }
+
+    public void book1() {
+
+        char choice;
+        if (total < 1) {
+            name = JOptionPane.showInputDialog("Please enter the following details\nName: ");
+            String status = JOptionPane.showInputDialog("Status: ");
+            int sStatus = Integer.parseInt(status);
+            t[total] = new Ticket(name, sStatus);
+            total++;
+            JOptionPane.showMessageDialog(null, "Booking successful. Enjoy the match!", "Booking successful", JOptionPane.INFORMATION_MESSAGE);
+
+        } else {
+            String schoice = JOptionPane.showInputDialog("All the tickets are sold out,would you like to be in the waiting list, position: " + (wl.getTail() + 2) + "\nPress y for yes or any other key for no: ");
+            
+    }
+    }
+    public void book2(Ticket t1, Movie m) {
+        int choice;
+        if (total < 1) {
+            t[total] = t1;
+            total++;
+
+        } else {
+            String schoice = JOptionPane.showInputDialog(m+"For the match mentioned above, all the tickets are sold out, would you like to be in the waiting list, position: " + (wl.getTail() + 2) + "\nPress y for yes or any other key for no: ");
+            choice = schoice.charAt(0);
+            if (choice == 'y') {
+                wl.enqueue(t1);
+            }
+        }
+    }
+
+    public void cancel() {
+        name = JOptionPane.showInputDialog("Please enter your name: ");
+        int i;
+        for (i = 0; i < 1; i++) {
+            if (t[i].getname().equalsIgnoreCase(name)) {
+                t[i].empty();
+                break;
+            }
+        }
+        if (i == 1) {
+            if (wl.remove(name) == false) {
+                JOptionPane.showMessageDialog(null, "The ticket has not been booked or it has already been cancelled", "Ticket not found", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } else {
+            for (int j = i; j < 0; j++) {
+                name = t[j + 1].getname();
+               int sStatus = t[j + 1].getstatus();
+
+                t[j].setDetails(name, sStatus);
+            }
+            total--;
+            t[total] = wl.dequeue();
+            total++;
+            JOptionPane.showMessageDialog(null, "Your ticket has been successfully cancelled. We will miss you!", "Cancellation successful", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    }
+
+    public void displaySt() {
+        name = JOptionPane.showInputDialog("Please enter your name: ");
+        int i;
+        for (i = 0; i < 1; i++) {
+            if (t[i] != null && t[i].getname() != null) {
+                if (t[i].getname().equalsIgnoreCase(name)) {
+                    JOptionPane.showMessageDialog(null, t[i] + "\nTicket status: Confirmed", "Ticket confirmed", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                }
+            }
+        }
+        if (i == 1) {
+            if (wl.search(name) == false) {
+                JOptionPane.showMessageDialog(null, "The ticket has not been booked or it has already been cancelled", "Ticket not found", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }
+}
