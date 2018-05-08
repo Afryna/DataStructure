@@ -21,26 +21,10 @@ public class Movie {
 
     private int day;
 
-    private int month;
-
-    private int year;
-
     private Tickets t;
 
     
     private Movie next;
-
-
-    @Override
-
-    public String toString() {
-
-        return ""+ team1 + " vs " + team2 + ", " + day + "/" + month + "/" + year + ", " + hour + ":" + minute;
-
-
-    }
-
-
     
     public Movie() {
 
@@ -49,40 +33,28 @@ public class Movie {
     }
 
 
-    public Movie(String team1, String team2, int hour, int minute, int day, int month, int year, Movie next) {
+    public Movie(String team1, int hour, int minute, int day, Movie next) {
 
         this.team1 = team1;
-
-        this.team2 = team2;
 
         this.hour = hour;
 
         this.minute = minute;
 
         this.day = day;
-
-        this.month = month;
-
-        this.year = year;
 
     }
 
 
-    public Movie(String team1, String team2, int hour, int minute, int day, int month, int year) {
+    public Movie(String team1, int hour, int minute, int day) {
 
         this.team1 = team1;
-
-        this.team2 = team2;
-
+        
         this.hour = hour;
 
         this.minute = minute;
 
         this.day = day;
-
-        this.month = month;
-
-        this.year = year;
 
     }
 
@@ -101,21 +73,15 @@ public class Movie {
     }
 
     
-    public void setDetails(String team1, String team2, int hour, int minute, int day, int month, int year){
+    public void setDetails(String team1, int hour, int minute, int day){
 
         this.team1 = team1;
-
-        this.team2 = team2;
 
         this.hour = hour;
 
         this.minute = minute;
 
         this.day = day;
-
-        this.month = month;
-
-        this.year = year;
 
     }
 
@@ -148,30 +114,9 @@ public class Movie {
         String[] date=dtf.format(localDate).split("/");
 
         int curday = Integer.parseInt(date[0]);
-
-        int curmonth = Integer.parseInt(date[1]);
-
-        int curyear = Integer.parseInt(date[2]);
-
         
         
-        if(this.year>curyear)
-
-            return true;
-
-        else if(this.year==curyear){
-
-            if(this.month>curmonth)
-
-                return true;
-
-            else if(this.month==curmonth){
-
-                if(this.day>curday)
-
-                    return true;
-
-                else if(this.day==curday){
+      if(this.day==curday){
 
                     if(this.hour>curhour)
 
@@ -192,38 +137,41 @@ public class Movie {
                 }
 
             }
+            
+            return false;
    
         }
-
-    return false;
    
     }
 
     
     public void bookticket(){
 
-        t.book1();
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 
+        
     }
 
     
     public void booktickets(Ticket t1){
 
-       // t.book2(t1.this);
+               throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
 
     }
 
     
     public void cancelticket(){
 
-        t.cancel();
+               throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
 
     }
 
     
-    public void displayStat(){
+    //public void displayStat(){
 
-       t.displaySt();
-    }
+      // t.displaySt();
+    //}
 
 }
