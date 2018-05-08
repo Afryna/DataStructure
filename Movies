@@ -1,0 +1,193 @@
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+
+
+/**
+ *
+ * @author afryn
+ */
+public class Movies {
+    
+    private int size;
+
+    /**
+     *
+     */
+    public Movie top;
+
+
+    Scanner scan = new Scanner(System.in);
+
+
+    public Movies() {
+
+        size = 0;
+
+        top = null;
+
+    }
+
+
+    //push
+
+    public void push(Movie m) {
+
+        m.setNext(top);
+
+        size++;
+
+        top = m;
+
+        System.out.println(top);
+
+    }
+
+
+    //pop
+
+    public Movie pop() {
+
+        if (size == 0) {
+
+            return null;
+
+        }
+ else {
+
+            size--;
+
+            Movie temp = top;
+
+            top = top.getNext();
+
+            temp.setNext(null);
+
+            return temp;
+
+        }
+
+    }
+
+
+    public void autoPop() {
+
+        if (top != null) {
+
+            while (!top.isNotOver()) {
+
+                this.pop();
+
+            }
+
+        }
+
+
+    }
+
+    //peek
+
+
+    public Movie peek() {
+
+        return top;
+
+    }
+
+    //getSize
+
+    //empty
+
+
+                //no of movie in the timing
+
+       
+
+
+    public void displayStack() {
+
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("All upcoming fixtures:-\n").append(top);
+
+        Movie m = top.getNext();
+
+        while (m != null) {
+
+            sb.append("\n").append(m);
+
+            m = m.getNext();
+
+        }
+
+        JOptionPane.showMessageDialog(null, sb.toString(), "All upcoming movies", JOptionPane.INFORMATION_MESSAGE);
+
+    }
+
+
+    public void buyticketsnext() {
+
+        top.bookticket();
+
+    }
+
+
+    public void buyticketsall() {
+
+        String name = JOptionPane.showInputDialog("Please enter your status below: ");
+
+        String status = JOptionPane.showInputDialog("Are you a member? (Enter 1-yes, 2-no) : ");
+        
+        int member = 1;
+        int nonMember = 2;
+
+        int sStatus = Integer.parseInt(status);
+
+        if("sStatus".equals(1)){
+            String ticPurchase = JOptionPane.showInputDialog("How many tickets you wish to buy? : ");
+            
+            int numTick = Integer.parseInt(ticPurchase);
+        }
+        else if ("sSTatus".equals(2)){
+            String ticPurchase = JOptionPane.showInputDialog(status);
+            
+            int numTick = Integer.parseInt(ticPurchase);
+        }
+        
+
+        Ticket t = new Ticket(name,sStatus);
+
+        top.booktickets(t);
+
+        Movie m = top.getNext();
+
+        while (m != null && m.getNext() != null) {
+
+            m = m.getNext();
+
+            m.booktickets(t);
+
+        }
+
+    }
+
+
+    public void cancelticketnext() {
+
+        top.cancelticket();
+
+    }
+
+
+    public void displayStatus() {
+
+        top.displayStat();
+
+    }
+
+     Movies(String teamName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
+}
